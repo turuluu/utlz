@@ -46,7 +46,7 @@ auto on_scope_exit(Functor cleanup_function)
 }
 }  // namespace detail
 
-#define on_scope_exit(cleanup_function)                                \
+#define on_scope_exit_here(cleanup_function)                                \
     volatile auto VAR_CAT3(__PRETTY_FUNCTION__, _cleanup_, __LINE__) = \
         utlz::detail::on_scope_exit(cleanup_function);
 }  // namespace utlz
