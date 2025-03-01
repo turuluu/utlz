@@ -1,7 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "scoped.hpp"
-#include "templates.hpp"
+#include "arrays.hpp"
+#include "strings.hpp"
 
 using namespace utlz;
 
@@ -57,9 +58,28 @@ TEST_CASE("make_array forwards args into a non-trivially-constructible object")
     constexpr int n = 4;
 
     std::array<NonTriviallyConstructible, n> test_array {
-        make_array<n, NonTriviallyConstructible>(2,3)
+        make_array<n, NonTriviallyConstructible>(2, 3)
     };
     CHECK_EQ(test_array.size(), n);
     for (const auto& e : test_array)
         CHECK_EQ(e.z, 6);
+}
+
+TEST_CASE("strings")
+{
+    std::vector<std::string> test_strings {};
+    int i = 0;
+    test_strings.push_back(to_string("foo", 1));
+    CHECK_EQ(test_strings.at(0), "foo1");
+
+    test_strings.push_back(to_string("bar", 1.1));
+    CHECK_EQ(test_strings.at(++i), "bar1.1");
+
+    test_strings.push_back(to_string("bar", std::string { "baz" }, 13, 2.4, false));
+    CHECK_EQ(test_strings.at(++i), "barbaz132.40");
+}
+
+TEST_CASE("threads")
+{
+    CHECK_EQ(get_thread_id(), get_thread_id());
 }

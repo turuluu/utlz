@@ -1,5 +1,5 @@
 set(SOURCE_FILES
-        scoped.hpp
+        strings.cpp
 )
 list(TRANSFORM SOURCE_FILES PREPEND ${CMAKE_CURRENT_SOURCE_DIR}/)
 set(SOURCE_FILES ${SOURCE_FILES} PARENT_SCOPE)
