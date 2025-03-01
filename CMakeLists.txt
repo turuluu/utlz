@@ -14,7 +14,8 @@ set(CMAKE_ASM_STANDARD_REQUIRED True)
 
 
 add_subdirectory(src)
-add_library(${PROJECT_NAME} INTERFACE)
+add_library(${PROJECT_NAME} INTERFACE
+        src/templates.hpp)
 
 option(utlz_enable_tests "Enable tests" ON)
 if (utlz_enable_tests)
