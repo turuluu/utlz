@@ -17,7 +17,8 @@ add_subdirectory(src)
 add_library(${PROJECT_NAME} INTERFACE
         src/scoped.hpp
         src/arrays.hpp
-        src/strings.hpp)
+        src/strings.hpp
+        src/math.hpp)
 target_sources(${PROJECT_NAME} INTERFACE ${SOURCE_FILES})
 
 
