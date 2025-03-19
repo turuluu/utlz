@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <sstream>
 #include <string>
 
@@ -13,7 +14,7 @@ std::string to_string(T... obj)
 
 std::string get_thread_id();
 
-size_t length(const char* cstr);
+std::size_t length(const char* cstr);
 }  // namespace utlz
 
 // Thread, Stack, Location debug print helper
@@ -33,14 +34,15 @@ size_t length(const char* cstr);
 #            define FILE_LOC util::to_string(__FILE__, ":", __LINE__)
 #        endif
 
-#        define PRINT_TSL                             \
-            do                                        \
-            {                                         \
-                printf("T[ %s ]\tS[ %s ]\tL[ %s ]\n", \
-                       utlz::get_thread_id().c_str(), \
-                       __PRETTY_FUNCTION__,           \
-                       FILE_LOC.c_str());             \
-                fflush(NULL);                         \
+#        include <cstdio>
+#        define PRINT_TSL                                  \
+            do                                             \
+            {                                              \
+                std::printf("T[ %s ]\tS[ %s ]\tL[ %s ]\n", \
+                       utlz::get_thread_id().c_str(),      \
+                       __PRETTY_FUNCTION__,                \
+                       FILE_LOC.c_str());                  \
+                std::fflush(nullptr);                      \
             } while (0);
 #    else
 #        define PRINT_TSL ;
