@@ -18,4 +18,4 @@ constexpr std::array<T, N> make_array(Args&&... args)
 {
     return make_array_impl<T>(std::make_index_sequence<N>(), std::forward<Args>(args)...);
 }
-}
+} // namespace utlz
