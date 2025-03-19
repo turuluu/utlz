@@ -1,14 +1,15 @@
+#pragma once
 
 #include <algorithm>
 #include <cmath>
-#include <sstream>
+#include <numbers>
 
 namespace utlz
 {
-const double pi = std::acos(-1);
+inline const double pi = std::acos(-1);
 
 template <typename T>
-T limit(T min, T max, T value)
+constexpr T limit(T min, T max, T value)
 {
     return std::min(max, std::max(min, value));
 }
