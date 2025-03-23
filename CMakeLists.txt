@@ -18,8 +18,10 @@ add_library(${PROJECT_NAME} INTERFACE
         src/scoped.hpp
         src/arrays.hpp
         src/strings.hpp
-        src/math.hpp)
+        src/math.hpp
+)
 target_sources(${PROJECT_NAME} INTERFACE ${SOURCE_FILES})
+target_include_directories(${PROJECT_NAME} INTERFACE include)
 
 
 option(utlz_enable_tests "Enable tests" ON)
@@ -32,11 +34,11 @@ if (utlz_enable_tests)
     if (DOCTEST_NO_COLORS)
         message(STATUS "Disable Doctest terminal output colors")
         target_compile_definitions(${PROJECT_NAME} INTERFACE DOCTEST_CONFIG_COLORS_NONE)
-    endif()
+    endif ()
     add_subdirectory(test)
-else()
+else ()
     message(STATUS "Tests \t\tDISABLED")
-endif()
+endif ()
 
 # https://docs.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8?view=msvc-160
 if (MSVC)
