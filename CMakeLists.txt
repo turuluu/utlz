@@ -19,7 +19,11 @@ add_library(${PROJECT_NAME} INTERFACE
         src/scoped.hpp
         src/arrays.hpp
         src/strings.hpp
-        src/math.hpp)
+        src/math.hpp
+        include/utlz/scoped.hpp
+        include/utlz/arrays.hpp
+        include/utlz/strings.hpp
+        include/utlz/math.hpp)
 target_sources(${PROJECT_NAME} INTERFACE ${SOURCE_FILES})
 
 
