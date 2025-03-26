@@ -3,8 +3,10 @@
 #include "scoped.hpp"
 #include "arrays.hpp"
 #include "strings.hpp"
+#include "math.hpp"
 
 using namespace utlz;
+
 
 TEST_CASE("Testing scoped guard")
 {
@@ -82,4 +84,9 @@ TEST_CASE("strings")
 TEST_CASE("threads")
 {
     CHECK_EQ(get_thread_id(), get_thread_id());
+}
+
+TEST_CASE("maths")
+{
+    CHECK_LT(pi - 3.14159, 0.00001);
 }

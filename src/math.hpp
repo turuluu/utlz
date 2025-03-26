@@ -1,12 +1,19 @@
 #pragma once
 
 #include <algorithm>
-#include <cmath>
-#include <numbers>
+#if __cplusplus > 201703L
+#    include <numbers>
+#else
+#    include <cmath>
+#endif
 
 namespace utlz
 {
+#if __cplusplus > 201703L
+using std::numbers::pi;
+#else
 inline const double pi = std::acos(-1);
+#endif
 
 template <typename T>
 constexpr T limit(T min, T max, T value)

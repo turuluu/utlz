@@ -3,11 +3,12 @@ cmake_minimum_required(VERSION 3.15)
 project(utlz)
 
 if (MSVC)
-    # Just to have the sweet-sweet named parameters, that clang++17 already has..
     set(CMAKE_CXX_STANDARD 20)
 else ()
-    set(CMAKE_CXX_STANDARD 17)
-    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE INTERNAL "" FORCE)
+    set(CMAKE_CXX_STANDARD 20)
+    # Enable intel builds
+    #    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE INTERNAL "" FORCE)
+    set(CMAKE_OSX_ARCHITECTURES "arm64" CACHE INTERNAL "" FORCE)
 endif ()
 set(CMAKE_ASM_STANDARD_REQUIRED True)
 #set(CMAKE_CXX_FLAGS_DEBUG "-O1")
@@ -18,10 +19,8 @@ add_library(${PROJECT_NAME} INTERFACE
         src/scoped.hpp
         src/arrays.hpp
         src/strings.hpp
-        src/math.hpp
-)
+        src/math.hpp)
 target_sources(${PROJECT_NAME} INTERFACE ${SOURCE_FILES})
-target_include_directories(${PROJECT_NAME} INTERFACE include)
 
 
 option(utlz_enable_tests "Enable tests" ON)
@@ -44,12 +43,3 @@ endif ()
 if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)
 endif ()
-
-# utfcpp
-#target_compile_definitions(${PROJECT_NAME} PUBLIC UTF_CPP_CPLUSPLUS=201703L)
-#target_include_directories(${PROJECT_NAME} PUBLIC "deps/utfcpp")
-
-# Harfbuzz
-#set(HB_BUILD_SUBSET OFF CACHE BOOL " " FORCE)
-#add_subdirectory(deps/harfbuzz)
-
