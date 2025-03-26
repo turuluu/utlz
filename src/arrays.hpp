@@ -1,3 +1,9 @@
+#pragma once
+
+#include <array>
+#include <cstddef>
+#include <utility>
+
 namespace utlz
 {
 template <typename T, typename... Args, std::size_t... sizes>
@@ -12,4 +18,4 @@ constexpr std::array<T, N> make_array(Args&&... args)
 {
     return make_array_impl<T>(std::make_index_sequence<N>(), std::forward<Args>(args)...);
 }
-}
+} // namespace utlz
