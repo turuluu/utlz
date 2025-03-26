@@ -10,35 +10,28 @@ else ()
     #    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE INTERNAL "" FORCE)
     set(CMAKE_OSX_ARCHITECTURES "arm64" CACHE INTERNAL "" FORCE)
 endif ()
-set(CMAKE_ASM_STANDARD_REQUIRED True)
-#set(CMAKE_CXX_FLAGS_DEBUG "-O1")
-
 
 add_subdirectory(src)
 add_library(${PROJECT_NAME} INTERFACE
-        src/scoped.hpp
-        src/arrays.hpp
-        src/strings.hpp
-        src/math.hpp
-        include/utlz/scoped.hpp
-        include/utlz/arrays.hpp
-        include/utlz/strings.hpp
-        include/utlz/math.hpp)
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/scoped.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/arrays.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/strings.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/math.hpp)
 target_sources(${PROJECT_NAME} INTERFACE ${SOURCE_FILES})
-
+target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 option(utlz_enable_tests "Enable tests" ON)
 if (utlz_enable_tests)
     message(STATUS "Tests \t\tENABLED")
-    add_library(doctest INTERFACE deps/doctest/doctest.h)
-    target_include_directories(doctest INTERFACE deps/doctest)
-    target_include_directories(${PROJECT_NAME} INTERFACE src)
+    add_library(doctest INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest/doctest.h)
+    target_include_directories(doctest INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest)
+    target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
     if (DOCTEST_NO_COLORS)
         message(STATUS "Disable Doctest terminal output colors")
         target_compile_definitions(${PROJECT_NAME} INTERFACE DOCTEST_CONFIG_COLORS_NONE)
     endif ()
-    add_subdirectory(test)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test)
 else ()
     message(STATUS "Tests \t\tDISABLED")
 endif ()
@@ -47,3 +40,5 @@ endif ()
 if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)
 endif ()
+
+add_library(turuluu::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
