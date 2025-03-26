@@ -20,7 +20,7 @@ add_library(${PROJECT_NAME} INTERFACE
 target_sources(${PROJECT_NAME} INTERFACE ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-option(utlz_enable_tests "Enable tests" ON)
+option(utlz_enable_tests "Enable tests" OFF)
 if (utlz_enable_tests)
     message(STATUS "Tests \t\tENABLED")
     add_library(doctest INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest/doctest.h)
