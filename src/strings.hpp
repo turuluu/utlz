@@ -4,18 +4,10 @@
 #include <sstream>
 #include <string>
 
-namespace utlz
-{
-template <typename... T>
-std::string to_string(T... obj)
-{
-    return (std::stringstream {} << ... << obj).str();
-}
-
-std::string get_thread_id();
-
-std::size_t length(const char* cstr);
-}  // namespace utlz
+// File:line print format for specific IDEs
+#ifndef FILE_LOC
+#    define FILE_LOC utlz::to_string(__FILE__, ":", __LINE__)
+#endif
 
 // Thread, Stack, Location debug print helper
 #ifndef UTLZ_TSL_PRINT_ENABLED
@@ -30,21 +22,41 @@ std::size_t length(const char* cstr);
 #            endif
 #        endif
 
-#        ifndef FILE_LOC
-#            define FILE_LOC util::to_string(__FILE__, ":", __LINE__)
-#        endif
-
 #        include <cstdio>
 #        define PRINT_TSL                                  \
             do                                             \
             {                                              \
                 std::printf("T[ %s ]\tS[ %s ]\tL[ %s ]\n", \
-                       utlz::get_thread_id().c_str(),      \
-                       __PRETTY_FUNCTION__,                \
-                       FILE_LOC.c_str());                  \
+                            utlz::get_thread_id().c_str(), \
+                            __PRETTY_FUNCTION__,           \
+                            FILE_LOC.c_str());             \
                 std::fflush(nullptr);                      \
             } while (0);
 #    else
 #        define PRINT_TSL ;
 #    endif  // TSL
 #endif
+
+namespace utlz
+{
+template <typename... T>
+std::string to_string(T... obj)
+{
+    return (std::stringstream {} << ... << obj).str();
+}
+
+std::string get_thread_id();
+
+std::size_t length(const char* cstr);
+
+static void dbg(auto&&... args)
+{
+#ifndef NDEBUG
+    std::stringstream ss;
+    (ss << ... << args) << std::endl;
+    std::printf(ss.str().c_str());
+#endif
+}
+
+}  // namespace utlz
+
