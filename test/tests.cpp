@@ -16,8 +16,8 @@ TEST_CASE("Testing scoped guard")
     int test_dismiss = 0;
     const int wrong_result_dismiss = 42;
     {
-        auto scoped0 = detail::on_scope_exit([&] { test_val = result; });
-        auto scoped1 = detail::on_scope_exit([&] { test_dismiss = wrong_result_dismiss; });
+        auto scoped0 = on_scope_exit([&] { test_val = result; });
+        auto scoped1 = on_scope_exit([&] { test_dismiss = wrong_result_dismiss; });
         scoped1.dismiss();
     }
 
