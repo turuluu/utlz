@@ -27,14 +27,14 @@
 
 #        include <cstdio>
 #        define PRINT_TSL                                  \
-do                                             \
-{                                              \
-std::printf("T[ %s ]\tS[ %s ]\tL[ %s ]\n", \
-utlz::get_thread_id().c_str(), \
-__PRETTY_FUNCTION__,           \
-FILE_LOC.c_str());             \
-std::fflush(nullptr);                      \
-} while (0);
+            do                                             \
+            {                                              \
+                std::printf("T[ %s ]\tS[ %s ]\tL[ %s ]\n", \
+                            utlz::get_thread_id().c_str(), \
+                            __PRETTY_FUNCTION__,           \
+                            FILE_LOC.c_str());             \
+                std::fflush(nullptr);                      \
+            } while (0);
 #    else
 #        define PRINT_TSL ;
 #    endif  // TSL
