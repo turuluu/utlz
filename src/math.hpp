@@ -15,10 +15,17 @@ using std::numbers::pi;
 inline const double pi = std::acos(-1);
 #endif
 
+// TODO : replace with clamp
 template <typename T>
 constexpr T limit(T min, T max, T value)
 {
     return std::min(max, std::max(min, value));
+}
+
+template <typename T>
+T lerp(T t, T a, T b)
+{
+    return a + (b - a) * t;
 }
 
 template <typename T>
